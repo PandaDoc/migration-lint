@@ -11,7 +11,7 @@ from migration_lint.sql.parser import classify_migration
 from migration_lint.util.colors import blue
 
 
-DOCS_URL = "https://coda.io/d/Application-Platform_dRYCqoVEASR/DB-migrations-classification_suAoY#_luZp5"
+DOCS_URL = "https://pandadoc.github.io/migration-lint/classification/"
 
 
 class CompatibilityLinter(BaseLinter):

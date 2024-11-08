@@ -120,8 +120,7 @@ def test_analyze_restricted():
                 mock.call(
                     "- There are restricted statements in migration\n\t"
                     "Check squawk output below for details\n\t"
-                    "Also check the doc to fix it: https://coda.io/d/"
-                    "Application-Platform_dRYCqoVEASR/DB-migrations-classification_suAoY#_luZp5\n"
+                    "Also check the doc to fix it: https://pandadoc.github.io/migration-lint/classification/\n"
                 )
             ]
         )

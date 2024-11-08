@@ -38,9 +38,9 @@ According to this pattern, we distinguish the following types of migrations:
 ### Locks
 
 | Name                  | Allowed DQL/DMS Commands | Conflicting DQL/DML Commands |
-|-----------------------|--------------------------|------------------------------|
-| AccessExclusiveLock   | SELECT, INSERT, UPDATE, DELETE |                              |
-| ShareRowExclusiveLock | SELECT                   | INSERT, UPDATE, DELETE       |
+|-----------------------|-------------------------|------------------------------|
+| AccessExclusiveLock   |                         | SELECT, INSERT, UPDATE, DELETE |
+| ShareRowExclusiveLock | SELECT                  | INSERT, UPDATE, DELETE       |
 
 ### Migrations
 
@@ -176,6 +176,7 @@ Backward-incompatible migration requiring data backfilling
   * Update code to use the new column (the code shouldn’t create null values
     for this column)
 * **stage2**: Backfill the new column with the default value.
+  For existing table with data in it default value is mandatory.
 * **stage4**: Add NOT NULL constraint:
   * `ALTER TABLE <tablename> ADD CONSTRAINT <cname>
     CHECK (<colname> IS NOT NULL) NOT VALID`.

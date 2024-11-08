@@ -32,6 +32,21 @@ jobs:
         run: |
           make test
 
+      - name: Coverage Badge
+        run: |
+          pip install coverage-badge "coverage[toml]"
+          coverage-badge -o coverage.svg
+
+      - name: Push badge to orphan branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan coverage-badge
+          git reset --hard
+          git add coverage.svg
+          git commit -m "Update coverage badge"
+          git push --force origin coverage-badge
+
 
   lint-python:
     runs-on: ubuntu-latest
