@@ -1,0 +1,80 @@
+[tool.poetry]
+name = "migration-lint"
+version = "0.1.2"
+description = "Tool for lint operations in DB migrations SQL"
+authors = ["Alexey Nikitenko <alexey.nikitenko@pandadoc.com>"]
+readme = "README.md"
+packages = [{include = "migration_lint"}]
+include = ["migration_lint/bin/*"]
+
+[tool.poetry.scripts]
+migration-lint = 'migration_lint.main:main'
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+sqlfluff = "^3.0.7"
+click = "^8.0.3"
+
+gitpython = { version = "^3.1.43", optional = true }
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+mypy = ">=0.990"
+ruff = ">=0.2"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = ">=8.0,<9.0"
+pytest-cov = ">=4.1,<5.0"
+
+[tool.poetry.extras]
+git = ["gitpython"]
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self.debug",
+    # Don't complain about some magic methods:
+    "def __str__",
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    # Don't complain about empty realizations
+    "pass",
+]
+ignore_errors = true
+
+[tool.pytest.ini_options]
+addopts = [
+    "--cov=migration_lint",
+    "--cov-report=html",
+    "--cov-report=term",
+    "--cov-report=xml",
+    "--junitxml=junit.xml",
+    "-vv",
+]
+
+[tool.poetry.build]
+generate-setup-file = false
+script="pre_build.py"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
