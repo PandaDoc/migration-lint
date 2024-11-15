@@ -81,6 +81,7 @@ from migration_lint.sql.parser import classify_migration
             StatementType.BACKWARD_COMPATIBLE,
         ),
         ("UPDATE t_name SET col=0", StatementType.DATA_MIGRATION),
+        ("DELETE FROM t_name WHERE col=0", StatementType.DATA_MIGRATION),
         (
             "INSERT INTO t_name (id, name) VALUES (1, 'foo')",
             StatementType.DATA_MIGRATION,

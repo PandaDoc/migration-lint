@@ -52,3 +52,12 @@ Rules are being checked from safest to the most dangerous:
 When you define a backward compatible, make sure that
 the rule is as specific as possible so that everything that is not
 explicitly allowed would be prohibited.
+
+## Ignoring rules
+
+Add the following line in the migration SQL representation
+to ignore whole migration:
+
+```sql
+-- migration-lint: ignore
+```

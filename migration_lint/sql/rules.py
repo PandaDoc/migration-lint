@@ -323,6 +323,7 @@ RESTRICTED_OPERATIONS: List[SegmentLocator] = [
 DATA_MIGRATION_OPERATIONS = [
     SegmentLocator(type="update_statement"),
     SegmentLocator(type="insert_statement"),
+    SegmentLocator(type="delete_statement"),
 ]
 
 IGNORED_OPERATIONS = [
