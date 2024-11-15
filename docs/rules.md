@@ -53,7 +53,7 @@ When you define a backward compatible, make sure that
 the rule is as specific as possible so that everything that is not
 explicitly allowed would be prohibited.
 
-## Ignoring rules
+## Ignoring statements
 
 Add the following line in the migration SQL representation
 to ignore whole migration:
