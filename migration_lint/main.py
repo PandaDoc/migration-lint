@@ -33,7 +33,7 @@ from migration_lint.source_loader import SourceLoader, LocalLoader
 @click.option(
     "--gitlab-instance",
     help="GitLab instance instance (protocol://host:port)",
-    default=os.getenv("CI_SERVER_FQDN"),
+    default=os.getenv("CI_SERVER_URL"),
 )
 @click.option(
     "--gitlab-api-key",
