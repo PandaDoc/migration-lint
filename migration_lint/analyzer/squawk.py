@@ -39,10 +39,7 @@ class SquawkLinter(BaseLinter):
     def squawk_command(self, migration_sql: str) -> str:
         """Get squawk command."""
 
-        return (
-            f"echo \"{migration_sql}\" | "
-            f"{self.squawk} --exclude={','.join(SquawkLinter.ignored_rules)}"
-        )
+        return f"{self.squawk} --exclude={','.join(SquawkLinter.ignored_rules)}"
 
     def lint(
         self,
@@ -53,6 +50,7 @@ class SquawkLinter(BaseLinter):
 
         output = subprocess.run(
             self.squawk_command(migration_sql),
+            input=migration_sql.encode(),
             shell=True,
             stdout=subprocess.PIPE,
         ).stdout.decode("utf-8")

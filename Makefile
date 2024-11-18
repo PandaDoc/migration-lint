@@ -7,7 +7,7 @@ DOTENV_BASE_FILE ?= .env-local
 DOTENV_CUSTOM_FILE ?= .env-custom
 
 POETRY_EXPORT_OUTPUT = requirements.txt
-POETRY_EXTRAS = --extras "git"
+POETRY_EXTRAS = --extras "git" --extras "django"
 POETRY_GROUPS = --with "dev,test"
 POETRY_PREINSTALLED ?= false
 POETRY_PUBLISH_PRERELEASE ?= false
