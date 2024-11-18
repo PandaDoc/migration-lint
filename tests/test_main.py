@@ -16,5 +16,5 @@ def test_main():
         result = runner.invoke(main, ["--loader=local_git", "--extractor=django"])
 
     assert result.exit_code == 0
-    assert type(analyzer_mock.call_args.kwargs["loader"]) == LocalLoader
-    assert type(analyzer_mock.call_args.kwargs["extractor"]) == DjangoExtractor
+    assert isinstance(analyzer_mock.call_args.kwargs["loader"], LocalLoader)
+    assert isinstance(analyzer_mock.call_args.kwargs["extractor"], DjangoExtractor)

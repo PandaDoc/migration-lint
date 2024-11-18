@@ -12,8 +12,8 @@ class DjangoExtractor(BaseExtractor):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # self.command = "python manage.py sqlmigrate {app} {number}"
-        self.command = "make sqlmigrate app={app} migration={number}"
+        # self.command = "python manage.py sqlmigrate {app} {migration_name}"
+        self.command = "make sqlmigrate app={app} migration={migration_name}"
         self.skip_lines = 2
 
     def is_migration(self, path: str) -> bool:
@@ -49,17 +49,19 @@ class DjangoExtractor(BaseExtractor):
         parts = migration_path.split("/")
         file_name = parts[-1]
         app = parts[-3]
-        number = file_name.replace(".py", "").split("_")[0]
+        migration_name = file_name.replace(".py", "")
 
-        logger.info(f"Extracting sql for migration: app={app}, number={number}")
+        logger.info(
+            f"Extracting sql for migration: app={app}, migration_name={migration_name}"
+        )
 
         try:
             output = subprocess.check_output(
-                self.command.format(app=app, number=number).split(" ")
+                self.command.format(app=app, migration_name=migration_name).split(" ")
             ).decode("utf-8")
         except subprocess.CalledProcessError:
             logger.error(
-                f"Failed to extract SQL for migration app={app}, number={number}"
+                f"Failed to extract SQL for migration app={app}, migration_name={migration_name}"
             )
             return ""
         return "\n".join(output.split("\n")[self.skip_lines :])
