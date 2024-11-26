@@ -20,12 +20,17 @@ class LocalLoader(BaseSourceLoader):
 
         repo = Repo(os.getcwd())
         diffs = repo.head.commit.diff(None)
-        add_or_change_diffs = [d for d in diffs if not d.deleted_file]
+        filtered_diffs = [
+            d
+            for d in diffs
+            if not d.deleted_file
+            and (not self.only_new_files or self.only_new_files and d.new_file)
+        ]
 
         logger.info("Files changed: ")
-        logger.info("\n".join([f"- {d.a_path}" for d in add_or_change_diffs]))
+        logger.info("\n".join([f"- {d.a_path}" for d in filtered_diffs]))
 
         return [
             SourceDiff(old_path=diff.a_path, path=diff.b_path)
-            for diff in add_or_change_diffs
+            for diff in filtered_diffs
         ]

@@ -23,6 +23,7 @@ class GitlabBranchLoader(BaseSourceLoader):
         gitlab_instance: str,
         **kwargs: Any,
     ) -> None:
+        super().__init__(**kwargs)
         self.base_url = gitlab_instance
         self.branch = branch
         self.project_id = project_id
@@ -55,6 +56,7 @@ class GitlabBranchLoader(BaseSourceLoader):
             )
             for diff in diffs
             if not diff["deleted_file"]
+            and (not self.only_new_files or self.only_new_files and diff["new_file"])
         ]
 
 
@@ -69,7 +71,9 @@ class GitlabMRLoader(BaseSourceLoader):
         project_id: str,
         gitlab_api_key: str,
         gitlab_instance: str,
+        **kwargs: Any,
     ) -> None:
+        super().__init__(**kwargs)
         self.base_url = gitlab_instance
         self.mr_id = mr_id
         self.project_id = project_id
@@ -109,4 +113,5 @@ class GitlabMRLoader(BaseSourceLoader):
             )
             for diff in diffs
             if not diff["deleted_file"]
+            and (not self.only_new_files or self.only_new_files and diff["new_file"])
         ]

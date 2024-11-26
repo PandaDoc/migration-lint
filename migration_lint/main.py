@@ -24,6 +24,11 @@ from migration_lint.source_loader import SourceLoader, LocalLoader
     type=click.Choice(Extractor.names(), case_sensitive=False),
     default=os.getenv("EXTRACTOR", DjangoExtractor.NAME),
 )
+@click.option(
+    "--only-new-files",
+    help="lint only new files, ignore changes in existing files",
+    default=os.getenv("ONLY_NEW_FILES", True),
+)
 # gitlab-specific arguments
 @click.option(
     "--project-id",

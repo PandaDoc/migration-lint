@@ -49,8 +49,8 @@ class SourceLoader(type):
 class BaseSourceLoader(metaclass=SourceLoader):
     """Base class for changes source files loader."""
 
-    def __init__(self, **kwargs: Any) -> None:
-        pass
+    def __init__(self, only_new_files: bool, **kwargs: Any) -> None:
+        self.only_new_files = only_new_files
 
     @abc.abstractmethod
     def get_changed_files(self) -> Sequence[SourceDiff]:
