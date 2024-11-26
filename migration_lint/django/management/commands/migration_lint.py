@@ -22,7 +22,7 @@ class Command(BaseCommand):
         parser.add_argument(
             "--only-new-files",
             dest="only_new_files",
-            action='store_true',
+            action="store_true",
             default=os.getenv("ONLY_NEW_FILES", True),
             help="lint only new files, ignore changes in existing files",
         )
