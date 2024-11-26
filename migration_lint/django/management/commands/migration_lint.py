@@ -20,18 +20,25 @@ class Command(BaseCommand):
             help="loader type (where to take source files changes)",
         )
         parser.add_argument(
+            "--only-new-files",
+            dest="only_new_files",
+            action='store_true',
+            default=os.getenv("ONLY_NEW_FILES", True),
+            help="lint only new files, ignore changes in existing files",
+        )
+        parser.add_argument(
+            "--gitlab-instance",
+            dest="gitlab_instance",
+            type=str,
+            default=os.getenv("CI_SERVER_URL"),
+            help="GitLab instance instance (protocol://host:port)",
+        )
+        parser.add_argument(
             "--project-id",
             dest="project_id",
             type=str,
             default=os.getenv("CI_PROJECT_ID"),
             help="GitLab project id (repo)",
-        )
-        parser.add_argument(
-            "--gitlab-instance",
-            dest="project_id",
-            type=str,
-            default=os.getenv("CI_SERVER_URL"),
-            help="GitLab instance instance (protocol://host:port)",
         )
         parser.add_argument(
             "--gitlab-api-key",
