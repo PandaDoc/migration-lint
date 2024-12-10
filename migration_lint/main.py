@@ -57,7 +57,15 @@ from migration_lint.source_loader import SourceLoader, LocalLoader
     help="integer merge request id",
     default=os.getenv("CI_MERGE_REQUEST_ID"),
 )
-def main(loader_type: str, extractor_type: str, **kwargs) -> None:
+@click.option(
+    "--squawk-config-path",
+    "squawk_config_path",
+    help="squawk config path",
+    default=os.getenv("MIGRATION_LINTER_SQUAWK_CONFIG_PATH"),
+)
+def main(
+    loader_type: str, extractor_type: str, squawk_config_path: str, **kwargs
+) -> None:
     logger.info("Start analysis..")
 
     loader = SourceLoader.get(loader_type)(**kwargs)
@@ -65,7 +73,7 @@ def main(loader_type: str, extractor_type: str, **kwargs) -> None:
     analyzer = Analyzer(
         loader=loader,
         extractor=extractor,
-        linters=[CompatibilityLinter(), SquawkLinter()],
+        linters=[CompatibilityLinter(), SquawkLinter(squawk_config_path)],
     )
     analyzer.analyze()
 

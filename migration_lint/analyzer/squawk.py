@@ -6,7 +6,7 @@ import subprocess
 import sys
 from io import StringIO
 from collections import defaultdict
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 import migration_lint
 from migration_lint.analyzer.base import BaseLinter
@@ -27,8 +27,9 @@ class SquawkLinter(BaseLinter):
         "transaction-nesting",  # TODO: Add transactions tracking.
     ]
 
-    def __init__(self) -> None:
+    def __init__(self, config_path: Optional[str] = None) -> None:
         bin_dir = os.path.join(migration_lint.__path__[0], "bin")
+        self.config_path = config_path
         if sys.platform == "linux":
             self.squawk = os.path.join(bin_dir, "squawk-linux-x86")
         elif sys.platform == "darwin":
@@ -38,8 +39,10 @@ class SquawkLinter(BaseLinter):
 
     def squawk_command(self, migration_sql: str) -> str:
         """Get squawk command."""
+        exclude = f"--exclude={','.join(self.ignored_rules)}"
+        config = f"--config={self.config_path}" if self.config_path else ""
 
-        return f"{self.squawk} --exclude={','.join(SquawkLinter.ignored_rules)}"
+        return " ".join([self.squawk, exclude, config]).strip()
 
     def lint(
         self,
