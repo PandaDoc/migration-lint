@@ -63,8 +63,15 @@ class Command(BaseCommand):
             default=os.getenv("CI_MERGE_REQUEST_ID"),
             help="integer merge request id",
         )
+        parser.add_argument(
+            "-squawk-config-path",
+            dest="squawk_config_path",
+            type=str,
+            default=os.getenv("MIGRATION_LINTER_SQUAWK_CONFIG_PATH"),
+            help="squawk config path",
+        )
 
-    def handle(self, loader_type, **options):
+    def handle(self, loader_type, squawk_config_path, **options):
         logger.info("Start analysis..")
 
         loader = SourceLoader.get(loader_type)(**options)
@@ -72,6 +79,6 @@ class Command(BaseCommand):
         analyzer = Analyzer(
             loader=loader,
             extractor=extractor,
-            linters=[CompatibilityLinter(), SquawkLinter()],
+            linters=[CompatibilityLinter(), SquawkLinter(squawk_config_path)],
         )
         analyzer.analyze()
