@@ -64,7 +64,7 @@ class Command(BaseCommand):
             help="integer merge request id",
         )
         parser.add_argument(
-            "-squawk-config-path",
+            "--squawk-config-path",
             dest="squawk_config_path",
             type=str,
             default=os.getenv("MIGRATION_LINTER_SQUAWK_CONFIG_PATH"),
