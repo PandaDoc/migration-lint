@@ -1,0 +1,41 @@
+name: Publish Coverage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          make install
+
+      - name: Run tests
+        run: |
+          make test
+
+      - name: Coverage Badge
+        run: |
+          pip install coverage-badge "coverage[toml]"
+          coverage-badge -o coverage.svg
+
+      - name: Push badge to orphan branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan coverage-badge
+          git reset --hard
+          git add coverage.svg
+          git commit -m "Update coverage badge"
+          git push --force origin coverage-badge
