@@ -1,5 +1,7 @@
 from unittest import mock
 
+import pytest
+
 from migration_lint.extractor.alembic import AlembicExtractor
 from migration_lint.source_loader.model import SourceDiff
 
@@ -30,3 +32,24 @@ def test_alembic_extractor__ok():
     assert metadata.changed_files[0].allowed_with_backward_incompatible is True
     assert metadata.changed_files[1].allowed_with_backward_incompatible is True
     assert metadata.changed_files[2].allowed_with_backward_incompatible is False
+
+
+@pytest.mark.parametrize(
+    "command,expected_command",
+    [
+        (None, "make sqlmigrate"),
+        ("alembic upgrade head --sql", "alembic upgrade head --sql"),
+    ],
+)
+def test_alembic_extractor_command__ok(command, expected_command):
+    extractor = AlembicExtractor(alembic_command=command)
+    changed_files = [
+        SourceDiff(path="src/db/migrations/versions/202202151945_fbea801d4464_auto.py"),
+    ]
+
+    with mock.patch(
+        "migration_lint.extractor.alembic.subprocess.check_output"
+    ) as subprocess_mock:
+        subprocess_mock.return_value = "".encode("utf-8")
+        extractor.create_metadata(changed_files)
+        subprocess_mock.assert_called_once_with(expected_command.split())

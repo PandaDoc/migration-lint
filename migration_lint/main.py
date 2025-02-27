@@ -63,6 +63,12 @@ from migration_lint.source_loader import SourceLoader, LocalLoader
     help="squawk config path",
     default=os.getenv("MIGRATION_LINTER_SQUAWK_CONFIG_PATH"),
 )
+@click.option(
+    "--alembic-command",
+    "alembic_command",
+    help="command to get Alembic migrations sql",
+    default=os.getenv("MIGRATION_LINTER_ALEMBIC_COMMAND"),
+)
 def main(
     loader_type: str, extractor_type: str, squawk_config_path: str, **kwargs
 ) -> None:

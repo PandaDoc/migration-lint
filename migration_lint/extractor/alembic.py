@@ -14,7 +14,7 @@ class AlembicExtractor(BaseExtractor):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.command = "make sqlmigrate"
+        self.command = kwargs.get("alembic_command") or "make sqlmigrate"
 
     def is_migration(self, path: str) -> bool:
         """Check if the specified file is a migration."""
