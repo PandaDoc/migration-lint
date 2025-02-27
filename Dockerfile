@@ -5,7 +5,7 @@ ARG version
 WORKDIR /app/
 
 RUN apt-get update -y \
-    && apt-get install -y git curl \
+    && apt-get install --no-install-recommends -y git curl \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install migration-lint==$version
