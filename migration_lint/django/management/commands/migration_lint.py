@@ -8,6 +8,8 @@ from migration_lint.django.extractor.django_management import DjangoManagementEx
 
 from django.core.management.base import BaseCommand
 
+from migration_lint.util.env import get_bool_env
+
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -23,7 +25,7 @@ class Command(BaseCommand):
             "--only-new-files",
             dest="only_new_files",
             action="store_true",
-            default=os.getenv("ONLY_NEW_FILES", True),
+            default=get_bool_env("ONLY_NEW_FILES", True),
             help="lint only new files, ignore changes in existing files",
         )
         parser.add_argument(

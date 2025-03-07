@@ -37,7 +37,23 @@ BACKWARD_INCOMPATIBLE_OPERATIONS: List[SegmentLocator] = [
     SegmentLocator(
         type="alter_table_statement",
         children=[
+            KeywordLocator(raw="ADD"),
+            KeywordLocator(raw="CONSTRAINT"),
+            KeywordLocator(raw="PRIMARY"),
+            KeywordLocator(raw="KEY"),
+        ],
+    ),
+    SegmentLocator(
+        type="alter_table_statement",
+        children=[
             KeywordLocator(raw="DROP"),
+            KeywordLocator(raw="COLUMN"),
+        ],
+    ),
+    SegmentLocator(
+        type="alter_table_statement",
+        children=[
+            KeywordLocator(raw="RENAME"),
             KeywordLocator(raw="COLUMN"),
         ],
     ),
@@ -237,6 +253,10 @@ BACKWARD_COMPATIBLE_OPERATIONS: List[SegmentLocator] = [
         type="update_statement",
         children=[SegmentLocator(type="table_reference", raw="alembic_version")],
     ),
+    SegmentLocator(type="create_function_statement"),
+    SegmentLocator(type="drop_function_statement"),
+    SegmentLocator(type="create_trigger"),
+    SegmentLocator(type="drop_trigger"),
 ]
 
 RESTRICTED_OPERATIONS: List[SegmentLocator] = [
@@ -332,6 +352,7 @@ IGNORED_OPERATIONS = [
     SegmentLocator(
         type="transaction_statement", children=[KeywordLocator(raw="BEGIN")]
     ),
+    SegmentLocator(type="transaction_statement", children=[KeywordLocator(raw="END")]),
     SegmentLocator(
         type="transaction_statement", children=[KeywordLocator(raw="COMMIT")]
     ),

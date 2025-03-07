@@ -106,6 +106,40 @@ from migration_lint.sql.parser import classify_migration
             "ALTER TABLE t_name ADD CONSTRAINT c_name UNIQUE USING INDEX i_name;",
             StatementType.BACKWARD_COMPATIBLE,
         ),
+        (
+            "ALTER TABLE t_name ADD CONSTRAINT c_name PRIMARY KEY USING INDEX i_name",
+            StatementType.BACKWARD_INCOMPATIBLE,
+        ),
+        (
+            "ALTER TABLE t_name RENAME COLUMN c_name TO another_name",
+            StatementType.BACKWARD_INCOMPATIBLE,
+        ),
+        (
+            """
+            CREATE TRIGGER tr_name
+            BEFORE INSERT ON t_name
+            FOR EACH ROW EXECUTE FUNCTION f_name()
+            """,
+            StatementType.BACKWARD_COMPATIBLE,
+        ),
+        (
+            "DROP TRIGGER t_name ON tbl_name",
+            StatementType.BACKWARD_COMPATIBLE,
+        ),
+        (
+            """
+            CREATE OR REPLACE FUNCTION f_name() RETURNS TRIGGER AS $$
+            BEGIN
+              NEW."new_id" := NEW."id";
+              RETURN NEW;
+            END $$ LANGUAGE plpgsql
+            """,
+            StatementType.BACKWARD_COMPATIBLE,
+        ),
+        (
+            "DROP FUNCTION t_name",
+            StatementType.BACKWARD_COMPATIBLE,
+        ),
     ],
 )
 def test_classify_migration(statement: str, expected_type: StatementType):

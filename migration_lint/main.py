@@ -6,6 +6,7 @@ from migration_lint import logger
 from migration_lint.analyzer import Analyzer, CompatibilityLinter, SquawkLinter
 from migration_lint.extractor import Extractor, DjangoExtractor
 from migration_lint.source_loader import SourceLoader, LocalLoader
+from migration_lint.util.env import get_bool_env
 
 
 @click.command()
@@ -27,7 +28,7 @@ from migration_lint.source_loader import SourceLoader, LocalLoader
 @click.option(
     "--only-new-files",
     help="lint only new files, ignore changes in existing files",
-    default=os.getenv("ONLY_NEW_FILES", True),
+    default=get_bool_env("ONLY_NEW_FILES", True),
 )
 # gitlab-specific arguments
 @click.option(
