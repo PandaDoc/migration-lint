@@ -1,3 +1,4 @@
+import os
 import re
 import subprocess
 from io import StringIO
@@ -15,12 +16,15 @@ class AlembicExtractor(BaseExtractor):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.command = kwargs.get("alembic_command") or "make sqlmigrate"
+        self.migration_path = os.environ.get(
+            "MIGRATION_LINT_ALEMBIC_MIGRATIONS_PATH", "/migrations/versions/"
+        )
 
     def is_migration(self, path: str) -> bool:
         """Check if the specified file is a migration."""
 
         return (
-            "/migrations/versions/" in path
+            self.migration_path in path
             and path.endswith(".py")
             and "__init__.py" not in path
         )
@@ -34,7 +38,7 @@ class AlembicExtractor(BaseExtractor):
             r".*/tables\.py",
             r".*/constants\.py",
             r".*/enums\.py",
-            r".*/migrations/versions/.*\.py",
+            rf".*{self.migration_path}.*\.py",
             r"^(?!.*\.py).*$",
         ]
         for pattern in allowed_patterns:

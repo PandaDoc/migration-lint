@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from migration_lint.extractor.alembic import AlembicExtractor
+from migration_lint.extractor.alembic import AlembicExtractor, os
 from migration_lint.source_loader.model import SourceDiff
 
 
@@ -53,3 +53,23 @@ def test_alembic_extractor_command__ok(command, expected_command):
         subprocess_mock.return_value = "".encode("utf-8")
         extractor.create_metadata(changed_files)
         subprocess_mock.assert_called_once_with(expected_command.split())
+
+
+def test_alembic_extractor_path__ok():
+    changed_files = [
+        SourceDiff(path="src/db/random/path/202202151945_fbea801d4464_auto.py"),
+    ]
+
+    with mock.patch(
+        "migration_lint.extractor.alembic.subprocess.check_output"
+    ) as subprocess_mock, mock.patch.dict(
+        os.environ,
+        {"MIGRATION_LINT_ALEMBIC_MIGRATIONS_PATH": "/random/path"},
+        clear=True,
+    ):
+        extractor = AlembicExtractor()
+        subprocess_mock.return_value = "".encode("utf-8")
+        metadata = extractor.create_metadata(changed_files)
+
+    assert len(metadata.migrations) == 1
+    assert metadata.changed_files[0].allowed_with_backward_incompatible is True
