@@ -1,4 +1,5 @@
 import json
+import os
 from typing import Any, Sequence
 from urllib.parse import urljoin
 from urllib.request import Request, urlopen
@@ -28,6 +29,7 @@ class GitlabBranchLoader(BaseSourceLoader):
         self.branch = branch
         self.project_id = project_id
         self.gitlab_api_key = gitlab_api_key
+        self.default_branch = os.environ.get("CI_DEFAULT_BRANCH", "master")
 
         if not self.branch or not self.project_id or not self.gitlab_api_key:
             raise RuntimeError(
@@ -39,10 +41,12 @@ class GitlabBranchLoader(BaseSourceLoader):
     def get_changed_files(self) -> Sequence[SourceDiff]:
         """Return a list of changed files."""
 
-        logger.info(f"### Getting changed files from master <-> {self.branch}")
+        logger.info(
+            f"### Getting changed files from {self.default_branch} <-> {self.branch}"
+        )
 
         endpoint = f"projects/{self.project_id}/repository/compare?"
-        query_params = f"from=master&to={self.branch}"
+        query_params = f"from={self.default_branch}&to={self.branch}"
         url = urljoin(f"{self.base_url}/api/v4/", endpoint + query_params)
         req = Request(url, headers={"PRIVATE-TOKEN": self.gitlab_api_key})
         with urlopen(req) as resp:
