@@ -19,6 +19,7 @@ class SquawkLinter(BaseLinter):
     ignored_rules = [
         "ban-drop-column",  # Backward-incompatible, checked by compatibility analyzer.
         "ban-drop-table",  # Backward-incompatible, checked by compatibility analyzer.
+        "adding-not-nullable-field",  # Backward-incompatible, checked by compatibility analyzer.
         "prefer-big-int",  # Deprecated.
         "prefer-identity",
         "prefer-timestamptz",
@@ -27,9 +28,12 @@ class SquawkLinter(BaseLinter):
         "transaction-nesting",  # TODO: Add transactions tracking.
     ]
 
-    def __init__(self, config_path: Optional[str] = None) -> None:
+    def __init__(
+        self, config_path: Optional[str] = None, pg_version: Optional[str] = None
+    ) -> None:
         bin_dir = os.path.join(migration_lint.__path__[0], "bin")
         self.config_path = config_path
+        self.pg_version = pg_version
         if sys.platform == "linux":
             self.squawk = os.path.join(bin_dir, "squawk-linux-x86")
         elif sys.platform == "darwin":
@@ -41,8 +45,9 @@ class SquawkLinter(BaseLinter):
         """Get squawk command."""
         exclude = f"--exclude={','.join(self.ignored_rules)}"
         config = f"--config={self.config_path}" if self.config_path else ""
+        pg_version = f"--pg-version={self.pg_version}" if self.pg_version else ""
 
-        return " ".join([self.squawk, exclude, config]).strip()
+        return " ".join([self.squawk, exclude, config, pg_version]).strip()
 
     def lint(
         self,

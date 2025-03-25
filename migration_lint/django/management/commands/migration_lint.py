@@ -72,8 +72,15 @@ class Command(BaseCommand):
             default=os.getenv("MIGRATION_LINTER_SQUAWK_CONFIG_PATH"),
             help="squawk config path",
         )
+        parser.add_argument(
+            "--squawk-pg-version",
+            dest="squawk_pg_version",
+            type=str,
+            default=os.getenv("MIGRATION_LINTER_SQUAWK_PG_VERSION"),
+            help="squawk version of PostgreSQL",
+        )
 
-    def handle(self, loader_type, squawk_config_path, **options):
+    def handle(self, loader_type, squawk_config_path, squawk_pg_version, **options):
         logger.info("Start analysis..")
 
         loader = SourceLoader.get(loader_type)(**options)
@@ -81,6 +88,12 @@ class Command(BaseCommand):
         analyzer = Analyzer(
             loader=loader,
             extractor=extractor,
-            linters=[CompatibilityLinter(), SquawkLinter(squawk_config_path)],
+            linters=[
+                CompatibilityLinter(),
+                SquawkLinter(
+                    config_path=squawk_config_path,
+                    pg_version=squawk_pg_version,
+                ),
+            ],
         )
         analyzer.analyze()
