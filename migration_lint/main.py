@@ -65,13 +65,23 @@ from migration_lint.util.env import get_bool_env
     default=os.getenv("MIGRATION_LINTER_SQUAWK_CONFIG_PATH"),
 )
 @click.option(
+    "--squawk-pg-version",
+    "squawk_pg_version",
+    help="squawk version of PostgreSQL",
+    default=os.getenv("MIGRATION_LINTER_SQUAWK_PG_VERSION"),
+)
+@click.option(
     "--alembic-command",
     "alembic_command",
     help="command to get Alembic migrations sql",
     default=os.getenv("MIGRATION_LINTER_ALEMBIC_COMMAND"),
 )
 def main(
-    loader_type: str, extractor_type: str, squawk_config_path: str, **kwargs
+    loader_type: str,
+    extractor_type: str,
+    squawk_config_path: str,
+    squawk_pg_version: str,
+    **kwargs,
 ) -> None:
     logger.info("Start analysis..")
 
@@ -80,7 +90,13 @@ def main(
     analyzer = Analyzer(
         loader=loader,
         extractor=extractor,
-        linters=[CompatibilityLinter(), SquawkLinter(squawk_config_path)],
+        linters=[
+            CompatibilityLinter(),
+            SquawkLinter(
+                config_path=squawk_config_path,
+                pg_version=squawk_pg_version,
+            ),
+        ],
     )
     analyzer.analyze()
 

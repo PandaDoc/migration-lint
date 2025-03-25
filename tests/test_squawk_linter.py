@@ -1,4 +1,3 @@
-from typing import Union
 from unittest.mock import patch
 
 import pytest
@@ -26,19 +25,27 @@ def test_unsupported_platform():
 
 
 @pytest.mark.parametrize(
-    "config_path, result_flags",
-    [(None, ""), (".squawk.toml", "--config=.squawk.toml")],
-    ids=["Without config", "With config"],
+    "params, result_flags",
+    [
+        ({}, ""),
+        ({"config_path": ".squawk.toml"}, "--config=.squawk.toml"),
+        ({"pg_version": "13.0"}, " --pg-version=13.0"),
+        (
+            {"config_path": ".squawk.toml", "pg_version": "13.0"},
+            "--config=.squawk.toml --pg-version=13.0",
+        ),
+    ],
+    ids=["Without params", "With config", "With pg version", "With all params"],
 )
 @patch("migration_lint.__path__", ["path"])
 @patch("sys.platform", "linux")
-def test_squawk_command(config_path: Union[str, None], result_flags: str):
+def test_squawk_command(params: dict, result_flags: str):
     ignored_rules = ["ignored-rule"]
 
     with patch.object(
         SquawkLinter, "ignored_rules", new_callable=lambda: ignored_rules
     ):
-        linter = SquawkLinter(config_path)
+        linter = SquawkLinter(**params)
 
         result = linter.squawk_command(FAKE_STATEMENT)
 
