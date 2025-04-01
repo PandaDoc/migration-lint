@@ -15,7 +15,11 @@ class AlembicExtractor(BaseExtractor):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        print("kwargs")
+        print(kwargs)
         self.command = kwargs.get("alembic_command") or "make sqlmigrate"
+        print("self.command")
+        print(self.command)
         self.migration_path = os.environ.get(
             "MIGRATION_LINT_ALEMBIC_MIGRATIONS_PATH", "/migrations/versions/"
         )
@@ -55,17 +59,21 @@ class AlembicExtractor(BaseExtractor):
         version = parts[1]
 
         logger.info(f"Extracting sql for migration: version={version}")
+        logger.info(self.command)
 
         migrations_sql = self._get_migrations_sql()
 
         try:
             return migrations_sql[version]
         except KeyError:
-            logger.error(
+            error_msg = (
                 f"Couldn't find info about migration with version={version} "
                 f"in alembic offline mode output"
             )
-            return ""
+            if self.ignore_extractor_not_found:
+                logger.error(error_msg)
+                return ""
+            raise RuntimeError(error_msg)
 
     @lru_cache(maxsize=1)
     def _get_migrations_sql(self):
@@ -77,9 +85,13 @@ class AlembicExtractor(BaseExtractor):
                 .decode("utf-8")
                 .split("\n")
             )
+            for line in lines:
+                print(line)
         except subprocess.CalledProcessError:
             logger.error("Failed to extract SQL for migrations")
-            return {}
+            if self.ignore_extractor_fail:
+                return {}
+            raise
 
         migrations_sql = {}
 
@@ -97,9 +109,10 @@ class AlembicExtractor(BaseExtractor):
                 current_migration = m.group(1)
                 current_migration_sql = StringIO()
 
-            elif "alembic_version" in line:
+            elif "UPDATE alembic_version" in line:
                 continue
-
+            elif line.startswith("/"):
+                continue
             else:
                 current_migration_sql.write(f"{line}\n")
 

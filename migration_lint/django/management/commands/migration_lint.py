@@ -79,6 +79,23 @@ class Command(BaseCommand):
             default=os.getenv("MIGRATION_LINTER_SQUAWK_PG_VERSION"),
             help="squawk version of PostgreSQL",
         )
+        parser.add_argument(
+            "--ignore-extractor-fail",
+            dest="ignore_extractor_fail",
+            action="store_true",
+            default=get_bool_env("MIGRATION_LINTER_IGNORE_EXTRACTOR_FAIL", False),
+            help="Don't fail the whole linter if extraction of sql fails",
+        )
+        parser.add_argument(
+            "--ignore-extractor-not-found",
+            dest="ignore_extractor_not_found",
+            action="store_true",
+            default=get_bool_env("MIGRATION_LINTER_IGNORE_EXTRACTOR_NOT_FOUND", False),
+            help="""
+                Don't fail the whole linter if extraction went fine,
+                but info about particular migration couldn't be found
+            """,
+        )
 
     def handle(self, loader_type, squawk_config_path, squawk_pg_version, **options):
         logger.info("Start analysis..")

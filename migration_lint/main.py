@@ -76,6 +76,20 @@ from migration_lint.util.env import get_bool_env
     help="command to get Alembic migrations sql",
     default=os.getenv("MIGRATION_LINTER_ALEMBIC_COMMAND"),
 )
+@click.option(
+    "--ignore-extractor-fail",
+    "ignore_extractor_fail",
+    is_flag=True,
+    help="Don't fail the whole linter if extraction of sql fails",
+    default=os.getenv("MIGRATION_LINTER_IGNORE_EXTRACTOR_FAIL", False),
+)
+@click.option(
+    "--ignore-extractor-not-found",
+    "ignore_extractor_not_found",
+    is_flag=True,
+    help="Don't fail the whole linter if extraction went fine, but info about particular migration couldn't be found",
+    default=os.getenv("MIGRATION_LINTER_IGNORE_EXTRACTOR_NOT_FOUND", False),
+)
 def main(
     loader_type: str,
     extractor_type: str,

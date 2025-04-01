@@ -1,3 +1,4 @@
+import subprocess
 from unittest import mock
 
 import pytest
@@ -50,7 +51,9 @@ def test_alembic_extractor_command__ok(command, expected_command):
     with mock.patch(
         "migration_lint.extractor.alembic.subprocess.check_output"
     ) as subprocess_mock:
-        subprocess_mock.return_value = "".encode("utf-8")
+        subprocess_mock.return_value = "-- Running upgrade fbea801d4465 -> fbea801d4464\nCREATE TABLE t (id serial)".encode(
+            "utf-8"
+        )
         extractor.create_metadata(changed_files)
         subprocess_mock.assert_called_once_with(expected_command.split())
 
@@ -68,8 +71,26 @@ def test_alembic_extractor_path__ok():
         clear=True,
     ):
         extractor = AlembicExtractor()
-        subprocess_mock.return_value = "".encode("utf-8")
+        subprocess_mock.return_value = "-- Running upgrade fbea801d4465 -> fbea801d4464\nCREATE TABLE t (id serial)".encode(
+            "utf-8"
+        )
         metadata = extractor.create_metadata(changed_files)
 
     assert len(metadata.migrations) == 1
     assert metadata.changed_files[0].allowed_with_backward_incompatible is True
+
+
+def test_alembic_extractor__error():
+    extractor = AlembicExtractor()
+    changed_files = [
+        SourceDiff(path="src/db/migrations/versions/202202151945_fbea801d4464_auto.py"),
+        SourceDiff(path="src/tables.py"),
+        SourceDiff(path="src/services.py"),
+    ]
+
+    with mock.patch(
+        "migration_lint.extractor.alembic.subprocess.check_output",
+        side_effect=subprocess.CalledProcessError(returncode=1, cmd="make sqlmigrate"),
+    ):
+        with pytest.raises(subprocess.CalledProcessError):
+            extractor.create_metadata(changed_files)

@@ -63,5 +63,7 @@ class DjangoExtractor(BaseExtractor):
             logger.error(
                 f"Failed to extract SQL for migration app={app}, migration_name={migration_name}"
             )
-            return ""
+            if self.ignore_extractor_fail:
+                return ""
+            raise
         return "\n".join(output.split("\n")[self.skip_lines :])
