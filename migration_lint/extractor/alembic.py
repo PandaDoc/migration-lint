@@ -55,17 +55,21 @@ class AlembicExtractor(BaseExtractor):
         version = parts[1]
 
         logger.info(f"Extracting sql for migration: version={version}")
+        logger.info(self.command)
 
         migrations_sql = self._get_migrations_sql()
 
         try:
             return migrations_sql[version]
         except KeyError:
-            logger.error(
+            error_msg = (
                 f"Couldn't find info about migration with version={version} "
                 f"in alembic offline mode output"
             )
-            return ""
+            if self.ignore_extractor_not_found:
+                logger.error(error_msg)
+                return ""
+            raise RuntimeError(error_msg)
 
     @lru_cache(maxsize=1)
     def _get_migrations_sql(self):
@@ -79,7 +83,9 @@ class AlembicExtractor(BaseExtractor):
             )
         except subprocess.CalledProcessError:
             logger.error("Failed to extract SQL for migrations")
-            return {}
+            if self.ignore_extractor_fail:
+                return {}
+            raise
 
         migrations_sql = {}
 
@@ -97,9 +103,10 @@ class AlembicExtractor(BaseExtractor):
                 current_migration = m.group(1)
                 current_migration_sql = StringIO()
 
-            elif "alembic_version" in line:
+            elif "UPDATE alembic_version" in line:
                 continue
-
+            elif line.startswith("/"):
+                continue
             else:
                 current_migration_sql.write(f"{line}\n")
 
