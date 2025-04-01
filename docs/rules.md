@@ -61,3 +61,14 @@ to ignore whole migration:
 ```sql
 -- migration-lint: ignore
 ```
+
+If you're using code-based migrations,
+make sure that the comment will appear in the SQL:
+
+```python
+# example for Alembic
+op.execute("SELECT 1; -- migration-lint: ignore")
+
+# example for Django
+migrations.RunSQL("SELECT 1; -- migration-lint: ignore", migrations.RunSQL.noop),
+```

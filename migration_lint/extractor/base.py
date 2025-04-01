@@ -55,7 +55,8 @@ class BaseExtractor(metaclass=Extractor):
     """Base class for migrations extractor."""
 
     def __init__(self, **kwargs) -> None:
-        pass
+        self.ignore_extractor_fail = kwargs.get("ignore_extractor_fail")
+        self.ignore_extractor_not_found = kwargs.get("ignore_extractor_not_found")
 
     def create_metadata(
         self,

@@ -21,5 +21,10 @@ class RawSqlExtractor(BaseExtractor):
     def extract_sql(self, migration_path: str) -> str:
         """Extract raw SQL from the migration file."""
 
-        with open(migration_path, "r") as f:
-            return f.read()
+        try:
+            with open(migration_path, "r") as f:
+                return f.read()
+        except:
+            if self.ignore_extractor_fail:
+                return ""
+            raise
