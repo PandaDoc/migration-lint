@@ -18,7 +18,7 @@ class LocalLoader(BaseSourceLoader):
 
         logger.info("### Getting changed files for local stashed files")
 
-        repo = Repo(os.getcwd())
+        repo = Repo(os.getcwd(), search_parent_directories=True)
         diffs = repo.head.commit.diff(None)
         filtered_diffs = [
             d

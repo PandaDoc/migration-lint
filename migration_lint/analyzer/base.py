@@ -13,6 +13,9 @@ from migration_lint.util.colors import green, red, yellow
 # A migration ignore mark.
 MANUALLY_IGNORE_ANNOTATION = "-- migration-lint: ignore"
 
+CLASSIFICATION_LINK = "https://pandadoc.github.io/migration-lint/classification/"
+IGNORE_LINK = "https://pandadoc.github.io/migration-lint/rules/#ignoring-statements"
+
 
 class BaseLinter:
     """Base class for migration linters."""
@@ -58,7 +61,6 @@ class Analyzer:
         errors = []
         for migration in metadata.migrations:
             logger.info(green(f"Analyzing migration: {migration.path}\n"))
-            print(f"{migration.raw_sql}\n")
 
             if MANUALLY_IGNORE_ANNOTATION in migration.raw_sql:
                 logger.info(yellow("Migration is ignored."))
@@ -75,6 +77,13 @@ class Analyzer:
             logger.info(red("Errors found in migrations:\n"))
             for error in errors:
                 logger.error(error)
+            logger.info("")
+            logger.info(
+                f"See classification of statements if you need to fix: {CLASSIFICATION_LINK}"
+            )
+            logger.info(
+                f"See how to ignore the linter for one migration: {IGNORE_LINK}"
+            )
             exit(1)
         else:
             logger.info(green("Everything seems good!"))
