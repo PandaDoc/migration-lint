@@ -232,6 +232,17 @@ BACKWARD_COMPATIBLE_OPERATIONS: List[SegmentLocator] = [
             KeywordLocator(raw="NULL", inverted=True),
             KeywordLocator(raw="PRIMARY", inverted=True),
             KeywordLocator(raw="KEY", inverted=True),
+            KeywordLocator(raw="IDENTITY", inverted=True),
+        ],
+    ),
+    SegmentLocator(
+        type="alter_table_statement",
+        children=[
+            KeywordLocator(raw="ALTER"),
+            KeywordLocator(raw="COLUMN"),
+            KeywordLocator(raw="ADD"),
+            KeywordLocator(raw="GENERATED"),
+            KeywordLocator(raw="IDENTITY"),
         ],
     ),
     SegmentLocator(type="create_statistics_statement"),
@@ -336,6 +347,15 @@ RESTRICTED_OPERATIONS: List[SegmentLocator] = [
             KeywordLocator(raw="COLUMN"),
             KeywordLocator(raw="PRIMARY"),
             KeywordLocator(raw="KEY"),
+        ],
+    ),
+    SegmentLocator(
+        type="alter_table_statement",
+        children=[
+            KeywordLocator(raw="ADD"),
+            KeywordLocator(raw="COLUMN"),
+            KeywordLocator(raw="GENERATED"),
+            KeywordLocator(raw="IDENTITY"),
         ],
     ),
 ]
