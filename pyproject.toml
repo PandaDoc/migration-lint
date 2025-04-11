@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "migration-lint"
-version = "0.2.10"
+version = "0.2.11"
 description = "Tool for lint operations in DB migrations SQL"
 authors = ["Alexey Nikitenko <alexey.nikitenko@pandadoc.com>"]
 readme = "README.md"
