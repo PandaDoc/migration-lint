@@ -1,0 +1,1610 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://pandadoc.github.io/migration-lint/classification/">
+      
+      
+        <link rel="prev" href="../rules/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>Migration classification - packages/migration-lint</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#db-migrations-classification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../..">
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="packages/migration-lint" class="md-header__button md-logo" aria-label="packages/migration-lint" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            packages/migration-lint
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Migration classification
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pandadoc/migration-lint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pandadoc/migration-lint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../rules/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rules API
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Migration classification
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="packages/migration-lint" class="md-nav__button md-logo" aria-label="packages/migration-lint" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    packages/migration-lint
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pandadoc/migration-lint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pandadoc/migration-lint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rules API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Migration classification
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration classification
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migrations-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migrations Classification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-multi-stage-migrations-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Multi-Stage Migrations Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consequences
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Locks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migrations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Index Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Index Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drop Index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename Index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reindex
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drop Sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alter-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alter Sequence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drop Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename Table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#column-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Column Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Column Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-column-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD COLUMN ... NULL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-column-not-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD COLUMN ... NOT NULL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alter-column-set-not-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      ALTER COLUMN ... SET NOT NULL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alter-column-drop-not-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      ALTER COLUMN ... DROP NOT NULL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-column-null-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD COLUMN ... NULL DEFAULT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-column-not-null-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD COLUMN ... NOT NULL DEFAULT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alter-column-set-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      ALTER COLUMN ... SET DEFAULT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alter-column-drop-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      ALTER COLUMN ... DROP DEFAULT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-column-bigserial-primary-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD COLUMN ... bigserial PRIMARY KEY
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-column-uuid-primary-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD COLUMN ... UUID PRIMARY KEY
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-column-unique" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD COLUMN ... UNIQUE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-column-generated-as-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD COLUMN ... GENERATED AS IDENTITY
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-column-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change Column Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-column" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename Column
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-column" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drop Column
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constraints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constraints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-not-null-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add NOT NULL Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-not-null-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove NOT NULL Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-foreign-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add Foreign Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-foreign-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drop Foreign Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-primary-key-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drop Primary Key Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-check-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add Check Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-check-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drop Check Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-unique-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add UNIQUE Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-unique-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drop UNIQUE Constraint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Migrations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="db-migrations-classification">DB migrations classification<a class="headerlink" href="#db-migrations-classification" title="Permanent link">&para;</a></h1>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>This DB migration classification is intended to be
+a basis for the unified DB migrations process.</p>
+<h3 id="migrations-classification">Migrations Classification<a class="headerlink" href="#migrations-classification" title="Permanent link">&para;</a></h3>
+<h3 id="common-multi-stage-migrations-pattern">Common Multi-Stage Migrations Pattern<a class="headerlink" href="#common-multi-stage-migrations-pattern" title="Permanent link">&para;</a></h3>
+<p>All stages are optional.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Autorun?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stage1</td>
+<td>Backward-compatible schema migration + (optional) code migration</td>
+<td>safe</td>
+</tr>
+<tr>
+<td>stage2</td>
+<td>Backfilling data migration</td>
+<td>* not safe on prod, safe on stagings</td>
+</tr>
+<tr>
+<td>stage3</td>
+<td>Code update that is a preparation for backward-incompatible schema migration</td>
+<td></td>
+</tr>
+<tr>
+<td>stage4</td>
+<td>Backward-incompatible schema migration</td>
+<td>* no on prod</td>
+</tr>
+</tbody>
+</table>
+<p>According to this pattern, we distinguish the following types of migrations:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Stages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data migration</td>
+<td>* stage2</td>
+</tr>
+<tr>
+<td>Backward-compatible migration</td>
+<td>* stage1</td>
+</tr>
+<tr>
+<td>Backward-incompatible migration</td>
+<td>* stage3, stage4</td>
+</tr>
+<tr>
+<td>Backward-incompatible migration requiring data backfilling</td>
+<td>* stage1, stage2, stage3 (optional), stage4</td>
+</tr>
+</tbody>
+</table>
+<h3 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Backward-compatible schema changes can be combined with the corresponding code
+  updates (including the code required for backfilling data migrations).</li>
+<li>Code updates required to prepare for backward-incompatible changes
+  must be a separate deployment.</li>
+<li>Backward-incompatible schema changes must be a separate deployment.</li>
+</ul>
+<h3 id="locks">Locks<a class="headerlink" href="#locks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Allowed DQL/DMS Commands</th>
+<th>Conflicting DQL/DML Commands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AccessExclusiveLock</td>
+<td></td>
+<td>SELECT, INSERT, UPDATE, DELETE</td>
+</tr>
+<tr>
+<td>ShareRowExclusiveLock</td>
+<td>SELECT</td>
+<td>INSERT, UPDATE, DELETE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="migrations">Migrations<a class="headerlink" href="#migrations" title="Permanent link">&para;</a></h3>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>We try to make all migrations idempotent.</li>
+<li>We note locks if they are important.</li>
+</ul>
+<h2 id="index-operations">Index Operations<a class="headerlink" href="#index-operations" title="Permanent link">&para;</a></h2>
+<h3 id="create-index">Create Index<a class="headerlink" href="#create-index" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1</strong>
+  <em><code>CREATE INDEX CONCURRENTLY IF NOT EXISTS ....</code>
+  </em><code>REINDEX INDEX CONCURRENTLY &lt;index_name&gt;</code> (if not valid)
+  *Update code to use the new index (optional, if the index is used in code).</li>
+</ul>
+<h3 id="drop-index">Drop Index<a class="headerlink" href="#drop-index" title="Permanent link">&para;</a></h3>
+<p>Backward-incompatible migration</p>
+<ul>
+<li><strong>stage3</strong>: Update code to not use an index that will be deleted (optional,
+  if the index is used in code).</li>
+<li><strong>stage4</strong>: <code>DROP INDEX CONCURRENTLY IF EXISTS &lt;indexname&gt;</code>.</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: <code>DROP INDEX CONCURRENTLY</code> cannot be used to drop any index
+that supports a constraint. See Drop primary key and Drop UNIQUE constraint.</p>
+</blockquote>
+<h3 id="rename-index">Rename Index<a class="headerlink" href="#rename-index" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1</strong>: <code>ALTER INDEX IF EXISTS ... RENAME TO ....</code></li>
+</ul>
+<h3 id="reindex">Reindex<a class="headerlink" href="#reindex" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1</strong>: <code>REINDEX INDEX CONCURRENTLY ....</code></li>
+</ul>
+<hr />
+<h2 id="sequence-operations">Sequence Operations<a class="headerlink" href="#sequence-operations" title="Permanent link">&para;</a></h2>
+<h3 id="create-sequence">Create Sequence<a class="headerlink" href="#create-sequence" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1</strong>:</li>
+<li><code>CREATE SEQUENCE &lt;seqname&gt; ....</code></li>
+<li>Update code to use the new sequence
+  (optional, if the sequence is used in code).</li>
+</ul>
+<h3 id="drop-sequence">Drop Sequence<a class="headerlink" href="#drop-sequence" title="Permanent link">&para;</a></h3>
+<p>Backward-incompatible migration</p>
+<ul>
+<li><strong>stage3</strong>: Update code to not use a sequence that will be deleted
+  (optional, if the sequence is used in code).</li>
+<li><strong>stage4</strong>: <code>DROP SEQUENCE &lt;seqname&gt;</code>.</li>
+</ul>
+<h3 id="alter-sequence">Alter Sequence<a class="headerlink" href="#alter-sequence" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1</strong>: <code>ALTER SEQUENCE &lt;seqname&gt; ....</code></li>
+</ul>
+<hr />
+<h2 id="table-operations">Table Operations<a class="headerlink" href="#table-operations" title="Permanent link">&para;</a></h2>
+<h3 id="create-table">Create Table<a class="headerlink" href="#create-table" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1</strong>:</li>
+<li><code>CREATE TABLE &lt;tablename&gt; ...</code></li>
+<li>Update code to use the new table.</li>
+</ul>
+<blockquote>
+<p><strong>WARNING</strong>: If there are foreign keys, table creation requires
+<code>ShareRowExclusiveLock</code> on the child tables, so use <code>lock_timeout</code>
+if the table to create contains foreign keys. <code>ADD FOREIGN KEY ... NOT VALID</code>
+does require the same lock, so it doesn’t make much sense
+to create foreign keys separately.</p>
+</blockquote>
+<h3 id="drop-table">Drop Table<a class="headerlink" href="#drop-table" title="Permanent link">&para;</a></h3>
+<p>Backward-incompatible migration</p>
+<ul>
+<li><strong>stage3</strong>: Update code to not use a table that will be deleted.</li>
+<li><strong>stage4</strong>:</li>
+<li>Drop all foreign key constraints to the table (see Drop foreign key).</li>
+<li><code>DROP TABLE &lt;tablename&gt;</code>.</li>
+</ul>
+<h3 id="rename-table">Rename Table<a class="headerlink" href="#rename-table" title="Permanent link">&para;</a></h3>
+<p>Backward-incompatible migration</p>
+<ul>
+<li><strong>stage1</strong></li>
+<li>Rename a table and create a view for backward compatibility
+    (<code>AccessExclusiveLock</code>).</li>
+<li>Update code to use the new table name.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">BEGIN</span><span class="p">;</span>
+<span class="linenos" data-linenos="2 "></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="n">new_tablename</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="linenos" data-linenos="3 "></span><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span><span class="w"> </span><span class="k">AS</span>
+<span class="linenos" data-linenos="4 "></span><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="n">new_tablename</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="linenos" data-linenos="5 "></span><span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li><strong>stage4</strong>: <code>DROP VIEW &lt;tablename&gt;</code></li>
+</ul>
+<h2 id="column-operations">Column Operations<a class="headerlink" href="#column-operations" title="Permanent link">&para;</a></h2>
+<h3 id="add-column-null">ADD COLUMN ... NULL<a class="headerlink" href="#add-column-null" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN &lt;colname&gt; ... NULL</code></li>
+<li>Update code to use the new column.</li>
+</ul>
+<h3 id="add-column-not-null">ADD COLUMN ... NOT NULL<a class="headerlink" href="#add-column-not-null" title="Permanent link">&para;</a></h3>
+<p>Backward-incompatible migration requiring data backfilling</p>
+<ul>
+<li><strong>stage1</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN &lt;colname&gt; ... DEFAULT &lt;value&gt;</code>
+    (safe from PostgreSQL 11)</li>
+<li>Update code to use the new column (the code shouldn’t create null values
+    for this column)</li>
+<li><strong>stage2</strong>: Backfill the new column with the default value.
+  For existing table with data in it default value is mandatory.</li>
+<li><strong>stage4</strong>: Add NOT NULL constraint:</li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;cname&gt;
+    CHECK (&lt;colname&gt; IS NOT NULL) NOT VALID</code>.</li>
+<li><code>ALTER TABLE &lt;tablename&gt; VALIDATE CONSTRAINT &lt;cname&gt;</code>.</li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; SET NOT NULL</code>
+  <em>(from PostgreSQL 12, “if a valid CHECK constraint is found which proves
+  no NULL can exist, then the table scan is skipped”).</em></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; DROP DEFAULT</code>.</li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP CONSTRAINT IF EXISTS &lt;cname&gt;</code>.</li>
+</ul>
+<h3 id="alter-column-set-not-null">ALTER COLUMN ... SET NOT NULL<a class="headerlink" href="#alter-column-set-not-null" title="Permanent link">&para;</a></h3>
+<p>Backward-incompatible migration requiring data backfilling</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt;
+    SET DEFAULT &lt;default_value&gt;.</code></li>
+<li>Update code to not write null values for the column.</li>
+<li><strong>stage2</strong>: Backfill the column with the default value.</li>
+<li><strong>stage4</strong>: Add NOT NULL constraint:</li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;cname&gt;
+    CHECK (&lt;colname&gt; IS NOT NULL) NOT VALID.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; VALIDATE CONSTRAINT &lt;cname&gt;.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; SET NOT NULL</code>
+    <em>(from PostgreSQL 12, “if a valid CHECK constraint is found
+  which proves no NULL can exist, then the table scan is skipped”).</em></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; DROP DEFAULT.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP CONSTRAINT IF EXISTS &lt;cname&gt;.</code></li>
+</ul>
+<h3 id="alter-column-drop-not-null">ALTER COLUMN ... DROP NOT NULL<a class="headerlink" href="#alter-column-drop-not-null" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1</strong>: <code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; DROP NOT NULL.</code></li>
+</ul>
+<h3 id="add-column-null-default">ADD COLUMN ... NULL DEFAULT <value><a class="headerlink" href="#add-column-null-default" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration (safe from PostgreSQL 11)</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN &lt;colname&gt; ... NULL DEFAULT &lt;value&gt;.</code></li>
+<li>Update code to use the new column.</li>
+</ul>
+<h3 id="add-column-not-null-default">ADD COLUMN ... NOT NULL DEFAULT <value><a class="headerlink" href="#add-column-not-null-default" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration (safe from PostgreSQL 11)</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN &lt;colname&gt; ... NOT NULL DEFAULT &lt;value&gt;</code></li>
+<li>Update code to use the new column.</li>
+</ul>
+<h3 id="alter-column-set-default">ALTER COLUMN ... SET DEFAULT<a class="headerlink" href="#alter-column-set-default" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1</strong>: <code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt;
+  SET DEFAULT &lt;default_value&gt;.</code></li>
+</ul>
+<h3 id="alter-column-drop-default">ALTER COLUMN ... DROP DEFAULT<a class="headerlink" href="#alter-column-drop-default" title="Permanent link">&para;</a></h3>
+<p>Backward-incompatible migration (in the worst case if the column is NOT NULL)</p>
+<ul>
+<li><strong>stage3</strong>: Update the code to provide the default value
+  (optional, if the column is NOT NULL).</li>
+<li><strong>stage4</strong>: <code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; DROP DEFAULT.</code></li>
+</ul>
+<h3 id="add-column-bigserial-primary-key">ADD COLUMN ... bigserial PRIMARY KEY<a class="headerlink" href="#add-column-bigserial-primary-key" title="Permanent link">&para;</a></h3>
+<p>This is specific case for migrating tables ids from usual int to bigint.</p>
+<p>Backward-incompatible migration requiring data backfilling</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>CREATE SEQUENCE &lt;tablename&gt;_&lt;colname&gt;_seq AS bigint START &lt;value&gt;</code>
+  (start value must be greater than number of rows in the table).</li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN &lt;colname&gt; bigint DEFAULT 0,
+    ALTER COLUMN &lt;colname&gt; SET DEFAULT nextval('&lt;tablename&gt;_&lt;colname&gt;_seq').</code></li>
+<li><code>ALTER SEQUENCE &lt;tablename&gt;_&lt;colname&gt;_seq OWNED BY &lt;tablename&gt;.&lt;colname&gt;.</code></li>
+<li><strong>stage2</strong>: Backfill the new column with values 1 .. N.</li>
+<li><strong>stage3</strong>: Update the code to use the new column.</li>
+<li><strong>stage4</strong>: Add a primary key constraint:</li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;cname&gt;
+    CHECK (&lt;colname&gt; IS NOT NULL) NOT VALID.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; VALIDATE CONSTRAINT &lt;cname&gt;.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; SET NOT NULL</code>
+    <em>(from PostgreSQL 12, “if a valid CHECK constraint is found
+  which proves no NULL can exist, then the table scan is skipped”).</em></li>
+<li><code>CREATE UNIQUE INDEX CONCURRENTLY &lt;iname&gt; ON &lt;tablename&gt; ....</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;tablename&gt;_pkey PRIMARY KEY
+    USING INDEX &lt;iname&gt;.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP CONSTRAINT IF EXISTS &lt;cname&gt;.</code></li>
+</ul>
+<h3 id="add-column-uuid-primary-key">ADD COLUMN ... UUID PRIMARY KEY<a class="headerlink" href="#add-column-uuid-primary-key" title="Permanent link">&para;</a></h3>
+<p>Backward-incompatible migration requiring data backfilling</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN &lt;colname&gt; UUID.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt;
+    SET DEFAULT gen_random_uuid()</code>
+    <em>(for PostgreSQL &lt; 13, use uuid_generate_v4 function
+  from uuid-ossp extension).</em></li>
+<li>Update the code to use the new field.</li>
+<li><strong>stage2</strong>: Backfill the new column with unique UUID values.</li>
+<li><strong>stage4</strong>: Add primary key constraint:</li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;cname&gt;
+    CHECK (&lt;colname&gt; IS NOT NULL) NOT VALID.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; VALIDATE CONSTRAINT &lt;cname&gt;.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; SET NOT NULL</code>
+    <em>(from PostgreSQL 12, “if a valid CHECK constraint is found
+  which proves no NULL can exist, then the table scan is skipped”).</em></li>
+<li><code>CREATE UNIQUE INDEX CONCURRENTLY &lt;iname&gt; ON &lt;tablename&gt; ....</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;tablename&gt;_pkey
+    PRIMARY KEY USING INDEX &lt;iname&gt;.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; DROP DEFAULT.</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP CONSTRAINT IF EXISTS &lt;cname&gt;.</code></li>
+</ul>
+<h3 id="add-column-unique">ADD COLUMN ... UNIQUE<a class="headerlink" href="#add-column-unique" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN &lt;colname&gt; ....</code></li>
+<li><code>CREATE UNIQUE INDEX CONCURRENTLY &lt;iname&gt; ON &lt;tablename&gt; ....</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;cname&gt; UNIQUE USING INDEX &lt;iname&gt;.</code></li>
+</ul>
+<h3 id="add-column-generated-as-identity">ADD COLUMN ... GENERATED AS IDENTITY<a class="headerlink" href="#add-column-generated-as-identity" title="Permanent link">&para;</a></h3>
+<p>This operation going to acquire AccessExclusiveLock and rewrite the whole table
+on the spot. So the only safe way to do it is
+backward-incompatible migration requiring data backfilling.</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>CREATE SEQUENCE &lt;tablename&gt;_&lt;colname&gt;_seq AS bigint START &lt;value&gt;</code><ul>
+<li>Note that start value shouldn't be 1, you need a space to backfill ids.</li>
+</ul>
+</li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN &lt;colname&gt; bigint DEFAULT 0,
+    ALTER COLUMN &lt;colname&gt; SET DEFAULT nextval('&lt;tablename&gt;_&lt;colname&gt;_seq').</code></li>
+<li><code>ALTER SEQUENCE &lt;tablename&gt;_&lt;colname&gt;_seq OWNED BY &lt;tablename&gt;.&lt;colname&gt;.</code></li>
+<li><strong>stage2</strong>: Backfill the new column with unique sequential values.</li>
+<li><strong>stage3</strong>:</li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;cname&gt;
+    CHECK (&lt;colname&gt; IS NOT NULL) NOT VALID</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; VALIDATE CONSTRAINT &lt;cname&gt;</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; SET NOT NULL</code></li>
+<li><code>BEGIN</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; DROP DEFAULT</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; ADD GENERATED BY DEFAULT
+    AS IDENTITY (START &lt;max_value&gt;)</code></li>
+<li><code>COMMIT</code></li>
+<li><code>DROP SEQUENCE &lt;tablename&gt;_&lt;colname&gt;_seq</code></li>
+</ul>
+<p>Be aware that IDENTITY doesn't guarantee that column is unique,
+if you want this, take a look on the "Add UNIQUE Constraint" section.</p>
+<hr />
+<h3 id="change-column-type">Change Column Type<a class="headerlink" href="#change-column-type" title="Permanent link">&para;</a></h3>
+<p><strong>Here we have two cases:</strong></p>
+<ul>
+<li>Backward-compatible migration — directly use <code>ALTER TABLE &lt;tablename&gt;
+  ALTER COLUMN &lt;colname&gt; TYPE ...</code> and update code in the following cases
+  (for PostgreSQL &gt;= 9.2):</li>
+<li>varchar(LESS) to varchar(MORE) where LESS &lt; MORE</li>
+<li>varchar(ANY) to text</li>
+<li>numeric(LESS, SAME) to numeric(MORE, SAME)
+  where LESS &lt; MORE and SAME == SAME</li>
+</ul>
+<p>Backward-incompatible migration requiring data backfilling in all other cases
+  (Tip: It's better to avoid such cases if possible):</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN new_&lt;colname&gt; ...</code>
+  (if column is NOT NULL, add this constraint in a separate migration;
+  see ALTER COLUMN ... SET NOT NULL).</li>
+<li>Dual write to both columns with a BEFORE INSERT/UPDATE trigger:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">fname</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="w">  </span><span class="k">RETURNS</span><span class="w"> </span><span class="k">trigger</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="k">AS</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="err">$$</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="k">BEGIN</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="w">  </span><span class="k">NEW</span><span class="p">.</span><span class="o">&lt;</span><span class="n">new_colname</span><span class="o">&gt;</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">NEW</span><span class="p">.</span><span class="o">&lt;</span><span class="n">colname</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="w">  </span><span class="k">RETURN</span><span class="w"> </span><span class="k">NEW</span><span class="p">;</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="k">END</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="err">$$</span>
+<span class="linenos" data-linenos="10 "></span><span class="k">LANGUAGE</span><span class="w"> </span><span class="s1">&#39;plpgsql&#39;</span><span class="p">;</span>
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tname</span><span class="o">&gt;</span>
+<span class="linenos" data-linenos="13 "></span><span class="w">  </span><span class="k">BEFORE</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">UPDATE</span>
+<span class="linenos" data-linenos="14 "></span><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span>
+<span class="linenos" data-linenos="15 "></span><span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span>
+<span class="linenos" data-linenos="16 "></span><span class="w">  </span><span class="k">EXECUTE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">fname</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+<ul>
+<li><strong>stage2</strong>: Backfill the new column with a copy of the old column’s values.</li>
+<li><strong>stage4</strong>:</li>
+<li>Add foreign key constraints referencing the new column
+  (see Add foreign key).</li>
+<li>Drop foreign key constraints referencing the old column
+  (see Drop foreign key).</li>
+<li>Rename <colname> to old_<colname> and new_<colname> to <colname>
+  within a single transaction and explicit LOCK <tablename> statement.</li>
+<li><code>DROP TRIGGER &lt;tname&gt;</code> in the same transaction.</li>
+<li><code>DROP FUNCTION &lt;fname&gt;</code> in the same transaction.</li>
+<li><code>DROP INDEX CONCURRENTLY</code> for all indexes using the old column.</li>
+<li><code>DROP COLUMN old_&lt;colname&gt;</code>.</li>
+</ul>
+<h3 id="rename-column">Rename Column<a class="headerlink" href="#rename-column" title="Permanent link">&para;</a></h3>
+<p><strong>Tip</strong>: Avoid renaming columns when possible.</p>
+<p>Backward-incompatible migration requiring data backfilling</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li>Rename the table and create a view for backward compatibility
+  (AccessExclusiveLock).</li>
+<li>Update code to use the new column.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="k">BEGIN</span><span class="p">;</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="w">  </span><span class="k">RENAME</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="o">&lt;</span><span class="n">colname</span><span class="o">&gt;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="n">new_colname</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span><span class="n">_tmp</span><span class="p">;</span>
+<span class="linenos" data-linenos=" 7 "></span>
+<span class="linenos" data-linenos=" 8 "></span><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span><span class="w"> </span><span class="k">AS</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">new_colname</span><span class="o">&gt;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="o">&lt;</span><span class="n">colname</span><span class="o">&gt;</span>
+<span class="linenos" data-linenos="10 "></span><span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span><span class="n">_tmp</span><span class="p">;</span>
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span><span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li><strong>stage4</strong>: Drop the view and restore the original table name
+  (AccessExclusiveLock).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">BEGIN</span><span class="p">;</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="k">DROP</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="linenos" data-linenos="4 "></span>
+<span class="linenos" data-linenos="5 "></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span><span class="n">_new</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="linenos" data-linenos="6 "></span>
+<span class="linenos" data-linenos="7 "></span><span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>DEPRECATED Approach:</strong></p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD COLUMN new_&lt;colname&gt; ...</code>
+  (if column is NOT NULL, add this constraint in a separate migration;
+  see ALTER COLUMN ... SET NOT NULL).</li>
+<li>Dual write to both columns with a BEFORE INSERT/UPDATE trigger:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">fname</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="w">  </span><span class="k">RETURNS</span><span class="w"> </span><span class="k">trigger</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="k">AS</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="err">$$</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="k">BEGIN</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="w">  </span><span class="k">NEW</span><span class="p">.</span><span class="o">&lt;</span><span class="n">new_colname</span><span class="o">&gt;</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="k">NEW</span><span class="p">.</span><span class="o">&lt;</span><span class="n">colname</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="w">  </span><span class="k">RETURN</span><span class="w"> </span><span class="k">NEW</span><span class="p">;</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="k">END</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="err">$$</span>
+<span class="linenos" data-linenos="10 "></span><span class="k">LANGUAGE</span><span class="w"> </span><span class="s1">&#39;plpgsql&#39;</span><span class="p">;</span>
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tname</span><span class="o">&gt;</span>
+<span class="linenos" data-linenos="13 "></span><span class="w">  </span><span class="k">BEFORE</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">UPDATE</span>
+<span class="linenos" data-linenos="14 "></span><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span>
+<span class="linenos" data-linenos="15 "></span><span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span>
+<span class="linenos" data-linenos="16 "></span><span class="w">  </span><span class="k">EXECUTE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">fname</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+<ul>
+<li><strong>stage2</strong>: Backfill the new column with a copy of the old column’s values.</li>
+<li><strong>stage3</strong>: Update code to use the new column name.</li>
+<li><strong>stage4</strong>:</li>
+<li>Add foreign key constraints referencing the new column
+  (see Add foreign key).</li>
+<li>Drop foreign key constraints referencing the old column
+  (see Drop foreign key).</li>
+<li><code>DROP TRIGGER &lt;tname&gt;</code>.</li>
+<li><code>DROP FUNCTION &lt;fname&gt;</code>.</li>
+<li><code>DROP INDEX CONCURRENTLY</code> for all indexes using the old column.</li>
+<li><code>DROP COLUMN &lt;colname&gt;</code>.</li>
+</ul>
+<h3 id="drop-column">Drop Column<a class="headerlink" href="#drop-column" title="Permanent link">&para;</a></h3>
+<p>Backward-incompatible migration</p>
+<ul>
+<li><strong>stage3</strong>: Update code to not use the column that will be dropped.</li>
+<li><strong>stage4</strong>:</li>
+<li>Drop foreign key constraints referencing the column (see Drop foreign key).</li>
+<li><code>DROP INDEX CONCURRENTLY</code> for all indexes using the column.</li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP COLUMN &lt;colname&gt;</code>.</li>
+</ul>
+<h2 id="constraints">Constraints<a class="headerlink" href="#constraints" title="Permanent link">&para;</a></h2>
+<h3 id="add-not-null-constraint">Add NOT NULL Constraint<a class="headerlink" href="#add-not-null-constraint" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;cname&gt;
+    CHECK (&lt;colname&gt; IS NOT NULL) NOT VALID</code>.</li>
+<li><code>ALTER TABLE &lt;tablename&gt; VALIDATE CONSTRAINT &lt;cname&gt;</code>
+  (may fail if data is inconsistent).</li>
+<li><code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; SET NOT NULL</code>
+  (from PostgreSQL 12, “if a valid CHECK constraint is found
+  which proves no NULL can exist, then the table scan is skipped”).</li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP CONSTRAINT IF EXISTS &lt;cname&gt;</code>.</li>
+</ul>
+<h3 id="remove-not-null-constraint">Remove NOT NULL Constraint<a class="headerlink" href="#remove-not-null-constraint" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong> <code>ALTER TABLE &lt;tablename&gt; ALTER COLUMN &lt;colname&gt; DROP NOT NULL</code>.</li>
+</ul>
+<h3 id="add-foreign-key">Add Foreign Key<a class="headerlink" href="#add-foreign-key" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD FOREIGN KEY ... NOT VALID</code>.</li>
+<li><code>ALTER TABLE &lt;tablename&gt; VALIDATE CONSTRAINT &lt;cname&gt;</code>
+  (may fail if data is inconsistent).</li>
+</ul>
+<h3 id="drop-foreign-key">Drop Foreign Key<a class="headerlink" href="#drop-foreign-key" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP CONSTRAINT IF EXISTS &lt;cname&gt;</code>.</li>
+</ul>
+<h3 id="drop-primary-key-constraint">Drop Primary Key Constraint<a class="headerlink" href="#drop-primary-key-constraint" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li>Update code to not rely on the column</li>
+<li><code>DROP INDEX CONCURRENTLY</code> for all indexes</li>
+<li>Drop foreign keys in other tables</li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP CONSTRAINT IF EXISTS &lt;cname&gt;</code>.</li>
+</ul>
+<h3 id="add-check-constraints">Add Check Constraints<a class="headerlink" href="#add-check-constraints" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;cname&gt; CHECK (...) NOT VALID</code>.</li>
+<li><code>ALTER TABLE &lt;tablename&gt; VALIDATE CONSTRAINT &lt;cname&gt;</code>.</li>
+</ul>
+<h3 id="drop-check-constraint">Drop Check Constraint<a class="headerlink" href="#drop-check-constraint" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP CONSTRAINT IF EXISTS &lt;cname&gt;</code>.</li>
+</ul>
+<h3 id="add-unique-constraint">Add UNIQUE Constraint<a class="headerlink" href="#add-unique-constraint" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>CREATE UNIQUE INDEX CONCURRENTLY &lt;iname&gt; ON &lt;tablename&gt; ....</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; ADD CONSTRAINT &lt;cname&gt; UNIQUE USING INDEX &lt;iname&gt;</code>.</li>
+</ul>
+<h3 id="drop-unique-constraint">Drop UNIQUE Constraint<a class="headerlink" href="#drop-unique-constraint" title="Permanent link">&para;</a></h3>
+<p>Backward-compatible migration</p>
+<ul>
+<li><strong>stage1:</strong></li>
+<li><code>DROP INDEX CONCURRENTLY</code></li>
+<li><code>SET lock_timeout = '1s';</code></li>
+<li><code>ALTER TABLE &lt;tablename&gt; DROP CONSTRAINT IF EXISTS &lt;cname&gt;.</code></li>
+</ul>
+<h2 id="data-migrations">Data Migrations<a class="headerlink" href="#data-migrations" title="Permanent link">&para;</a></h2>
+<p>All data migrations operations are lock-safe, but should be done
+with batches and considering database load.</p>
+<h2 id="useful-links">Useful Links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/tbicr/django-pg-zero-downtime-migrations">tbicr/django-pg-zero-downtime-migrations</a></li>
+<li><a href="https://example.com">PostgreSQL at Scale: Database Schema Changes Without Downtime</a></li>
+<li><a href="https://example.com">Waiting for PostgreSQL 11 – Fast ALTER TABLE ADD COLUMN with a non-NULL default</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../rules/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Rules API">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Rules API
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="mailto:migration-lint-team@pandadoc.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.8l167.6-182.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.instant", "navigation.expand", "navigation.top", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "search.suggest", "search.highlight", "toc.follow", "toc.integrate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
