@@ -103,6 +103,8 @@ class AlembicExtractor(BaseExtractor):
                 current_migration = m.group(1)
                 current_migration_sql = StringIO()
 
+            elif "INSERT INTO alembic_version" in line:
+                continue
             elif "UPDATE alembic_version" in line:
                 continue
             elif line.startswith("/"):

@@ -24,6 +24,7 @@ def test_alembic_extractor__ok():
             "UPDATE alembic_version SET version_num='000000000000'\n"
             "-- Running upgrade  -> fbea801d4464\n"
             "ALTER TABLE t DROP COLUMN c;\n"
+            "INSERT INTO alembic_version (version_num) VALUES (fbea801d4464) RETURNING alembic_version.version_num\n"
             "UPDATE alembic_version SET version_num='fbea801d4464'".encode("utf-8")
         )
         metadata = extractor.create_metadata(changed_files)
