@@ -13,6 +13,8 @@ Features:
   and check if they are allowed in the current context.
 - Can identify "unsafe" operations, e.g. operations that acquire locks
   that can be dangerous for production database.
+- Primary Key Validation: Checks if newly created tables have primary keys
+  to ensure better performance and data integrity.
 
 ## Installation
 
@@ -31,7 +33,8 @@ pip install "migration-lint"
   so it depends on the framework you use for migrations.
 - **Linter** - class that checks migration's SQL and context
   and returns errors if any. We have implemented our linter
-  for backward incompatible migrations as well as integrated `squawk` linter.
+  for backward incompatible migrations, integrated `squawk` linter,
+  and added a primary key validation linter.
 
 ## Run
 
@@ -73,6 +76,65 @@ migration-lint --loader=gitlab_branch --extractor=<your extractor>
 ```
 
 I uses env variable CI_MERGE_REQUEST_ID or option --mr-id.
+
+## Configuration Options
+
+### Primary Key Validation
+
+The primary key linter can be configured using the following option:
+
+```shell
+--primary-key-check-dry-run
+```
+
+- **Default**: `True` (dry-run mode enabled)
+- **Environment variable**: `MIGRATION_LINTER_PRIMARY_KEY_CHECK_DRY_RUN`
+- **Description**: When enabled (default), the primary key linter runs in dry-run mode,
+  logging warnings about tables created without primary keys but not failing the overall
+  linting process. When disabled, missing primary keys are treated as errors.
+
+**Example usage:**
+
+```shell
+# Run with primary key validation in dry-run mode (default)
+migration-lint --loader=local_git --extractor=django
+
+# Disable dry-run mode to treat missing primary keys as errors
+migration-lint --loader=local_git --extractor=django --primary-key-check-dry-run=false
+```
+
+## Linters
+
+### Primary Key Linter
+
+The Primary Key Linter checks if newly created tables have primary keys defined.
+This is important for database performance and data integrity.
+
+**What it checks:**
+- Analyzes `CREATE TABLE` statements in migrations
+- Detects tables created without a `PRIMARY KEY` constraint
+- Provides helpful warnings or errors depending on configuration
+
+**Example output in dry-run mode:**
+```
+🔍 Primary Key Check (dry-run mode):
+  ⚠️  Table 'user_sessions' created without a primary key:
+     CREATE TABLE user_sessions (session_id VARCHAR(255), user_id INTEGER, created_at TIMESTAMP)
+  💡 Consider adding a primary key for better performance and data integrity.
+```
+
+**Example output when dry-run is disabled:**
+```
+Errors found in migrations:
+
+- Table 'user_sessions' is created without a primary key: CREATE TABLE user_sessions (session_id VARCHAR(255), user_id INTEGER, created_at TIMESTAMP)
+  Consider adding a primary key for better performance and data integrity.
+```
+
+**Best practices:**
+- Every table should have a primary key for optimal database performance
+- Primary keys ensure row uniqueness and enable efficient indexing
+- Common primary key patterns include auto-incrementing integers or UUIDs
 
 ## Feedback
 

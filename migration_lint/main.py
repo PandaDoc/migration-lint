@@ -116,7 +116,6 @@ def main(
     loader = SourceLoader.get(loader_type)(**kwargs)
     extractor = Extractor.get(extractor_type)(**kwargs)
 
-    # Build linters list
     linters = [
         CompatibilityLinter(),
         SquawkLinter(

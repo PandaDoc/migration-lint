@@ -17,6 +17,7 @@ Features:
   and check if they are allowed in the current context.
 - Can identify "unsafe" operations, e.g. operations that acquire locks
   that can be dangerous for production database.
+- Checks if newly created tables have primary keys to ensure better performance and data integrity.
 
 ## Installation
 

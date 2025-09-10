@@ -125,8 +125,16 @@ Backward-compatible migration
 > **WARNING**: If there are foreign keys, table creation requires
 > `ShareRowExclusiveLock` on the child tables, so use `lock_timeout`
 > if the table to create contains foreign keys. `ADD FOREIGN KEY ... NOT VALID`
-> does require the same lock, so it doesn’t make much sense
+> does require the same lock, so it doesn't make much sense
 > to create foreign keys separately.
+
+> **BEST PRACTICE**: Always include a primary key when creating tables.
+> Tables without primary keys can lead to performance issues and complicate
+> replication. The migration-lint primary key linter will warn about tables
+> created without primary keys. Common patterns include:
+> * `id SERIAL PRIMARY KEY` (auto-incrementing integer)
+> * `id UUID PRIMARY KEY DEFAULT gen_random_uuid()` (UUID)
+> * Composite primary keys for junction tables
 
 ### Drop Table
 
@@ -521,6 +529,10 @@ Backward-compatible migration
   * `DROP INDEX CONCURRENTLY` for all indexes
   * Drop foreign keys in other tables
   * `ALTER TABLE <tablename> DROP CONSTRAINT IF EXISTS <cname>`.
+
+> **NOTE**: The migration-lint primary key linter only checks for missing
+> primary keys in newly created tables. It does not validate operations
+> that modify or drop existing primary keys.
 
 ### Add Check Constraints
 
