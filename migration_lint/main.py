@@ -3,9 +3,14 @@ import os
 import click
 
 from migration_lint import logger
-from migration_lint.analyzer import Analyzer, CompatibilityLinter, SquawkLinter
-from migration_lint.extractor import Extractor, DjangoExtractor
-from migration_lint.source_loader import SourceLoader, LocalLoader
+from migration_lint.analyzer import (
+    Analyzer,
+    CompatibilityLinter,
+    PrimaryKeyLinter,
+    SquawkLinter,
+)
+from migration_lint.extractor import DjangoExtractor, Extractor
+from migration_lint.source_loader import LocalLoader, SourceLoader
 from migration_lint.util.env import get_bool_env
 
 
@@ -87,30 +92,44 @@ from migration_lint.util.env import get_bool_env
     "--ignore-extractor-not-found",
     "ignore_extractor_not_found",
     is_flag=True,
-    help="Don't fail the whole linter if extraction went fine, but info about particular migration couldn't be found",
+    help="Don't fail the whole linter if extraction went fine, but info "
+    "about particular migration couldn't be found",
     default=os.getenv("MIGRATION_LINTER_IGNORE_EXTRACTOR_NOT_FOUND", False),
+)
+@click.option(
+    "--primary-key-check-dry-run",
+    "primary_key_check_dry_run",
+    is_flag=True,
+    help="Primary key validation dry-run mode",
+    default=os.getenv("MIGRATION_LINTER_PRIMARY_KEY_CHECK_DRY_RUN", True),
 )
 def main(
     loader_type: str,
     extractor_type: str,
     squawk_config_path: str,
     squawk_pg_version: str,
+    primary_key_check_dry_run: bool,
     **kwargs,
 ) -> None:
     logger.info("Start analysis..")
 
     loader = SourceLoader.get(loader_type)(**kwargs)
     extractor = Extractor.get(extractor_type)(**kwargs)
+
+    # Build linters list
+    linters = [
+        CompatibilityLinter(),
+        SquawkLinter(
+            config_path=squawk_config_path,
+            pg_version=squawk_pg_version,
+        ),
+        PrimaryKeyLinter(dry_run=primary_key_check_dry_run),
+    ]
+
     analyzer = Analyzer(
         loader=loader,
         extractor=extractor,
-        linters=[
-            CompatibilityLinter(),
-            SquawkLinter(
-                config_path=squawk_config_path,
-                pg_version=squawk_pg_version,
-            ),
-        ],
+        linters=linters,
     )
     analyzer.analyze()
 
