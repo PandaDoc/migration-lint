@@ -46,6 +46,13 @@ migration-lint --loader=local_git --extractor=<your extractor>
 It will examine files in current repository that are added or modified
 and not yet commited.
 
+If you need to check all committed changes in the current branch compared to
+master/main branch (configurable with `CI_DEFAULT_BRANCH`):
+
+```shell linenums="0"
+migration-lint --loader=local_git_branch --extractor=<your extractor>
+```
+
 ### GitLab
 
 If you need to run it on the GitLab pipeline:
