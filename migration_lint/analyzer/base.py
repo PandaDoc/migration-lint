@@ -26,7 +26,7 @@ class BaseLinter:
         migration_sql: str,
         changed_files: List[ExtendedSourceDiff],
     ) -> List[str]:
-        """Perform SQL migartion linting."""
+        """Perform SQL migration linting."""
 
         raise NotImplementedError()
 

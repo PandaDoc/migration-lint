@@ -31,7 +31,7 @@ class Extractor(type):
             # Not the base class.
             if not hasattr(cls, "NAME"):
                 raise NotImplementedError(
-                    f"extractor {cls.__name__} doesn't provie name",
+                    f"extractor {cls.__name__} doesn't provide name",
                 )
 
             mcls.extractors[cls.NAME] = cls

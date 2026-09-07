@@ -44,7 +44,7 @@ migration-lint --loader=local_git --extractor=<your extractor>
 ```
 
 It will examine files in current repository that are added or modified
-and not yet commited.
+and not yet committed.
 
 ### GitLab
 

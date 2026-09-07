@@ -38,7 +38,7 @@ from migration_lint.util.env import get_bool_env
 )
 @click.option(
     "--gitlab-instance",
-    help="GitLab instance instance (protocol://host:port)",
+    help="GitLab instance (protocol://host:port)",
     default=os.getenv("CI_SERVER_URL"),
 )
 @click.option(
