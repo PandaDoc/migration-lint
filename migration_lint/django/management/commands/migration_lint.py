@@ -33,7 +33,7 @@ class Command(BaseCommand):
             dest="gitlab_instance",
             type=str,
             default=os.getenv("CI_SERVER_URL"),
-            help="GitLab instance instance (protocol://host:port)",
+            help="GitLab instance (protocol://host:port)",
         )
         parser.add_argument(
             "--project-id",

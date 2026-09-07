@@ -20,7 +20,7 @@ class Migration:
 
 @dataclass
 class ExtendedSourceDiff(SourceDiff):
-    """An object desribing a single changed file.
+    """An object describing a single changed file.
 
     - `path` -- the path to the file;
     - `old_path` -- the previous path to the file; differs from `path` if the
